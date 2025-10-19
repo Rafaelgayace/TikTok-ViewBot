@@ -47,10 +47,9 @@ class Zefoy:
             6: (('self.driver.find_element(By.XPATH, self.xpaths["favorites"]).click()', "12"), "c2VuZF9mb2xsb3dlcnNfdGlrdG9L")
         }
 
-    # Função setup_browser única, pronta para Render
+    # Função setup_browser modificada para Render (sem depender de /usr/bin/chromium)
     def setup_browser(self) -> WebDriver:
         options = Options()
-        options.binary_location = "/usr/bin/chromium"  # Render Chromium
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
@@ -58,10 +57,11 @@ class Zefoy:
         options.add_experimental_option("detach", True)
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
+        # ChromeDriverManager vai baixar o Chrome correto automaticamente
         return webdriver.Chrome(
-            options=options,
-            service=Service(ChromeDriverManager().install())
-        )
+            service=Service(ChromeDriverManager().install()),
+            options=options
+     )
 
     def solve(self, debug=False) -> dict:
         session = Session()
