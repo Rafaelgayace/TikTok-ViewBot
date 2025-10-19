@@ -1,5 +1,4 @@
-# I used tekky's script because I was too lazy to do it, it's just a simple script.
-
+# I used tek
 from time import sleep
 from datetime import datetime
 from os import system, name as os_name
@@ -15,7 +14,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
-
 text = """
  ███████ ███████ ███████  ██████  ██    ██ 
     ███  ██      ██      ██    ██  ██  ██  
@@ -30,7 +28,6 @@ class Zefoy:
         self.sent = 0
         self.option = None
         self.clear = system('cls' if os_name == 'nt' else 'clear')
-        self.captcha_box = '/html/body/div[5]/div[2]/form/div/div'
 
         self.xpaths = {
             "followers"     : "/html/body/div[6]/div/div[2]/div/div/div[2]/div/button",
@@ -50,51 +47,30 @@ class Zefoy:
             6: (('self.driver.find_element(By.XPATH, self.xpaths["favorites"]).click()', "12"), "c2VuZF9mb2xsb3dlcnNfdGlrdG9L")
         }
 
-# v2.py
-
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-
-# Aqui você cola o trecho
-def setup_browser():
-    options = Options()
-    options.binary_location = "/usr/bin/chromium"  # Render vai usar Chromium
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-
-    driver = webdriver.Chrome(
-        service=Service("/usr/bin/chromedriver"),
-        options=options
-    )
-    return driver
-
-# Exemplo de uso no seu código
-if __name__ == "__main__":
-    driver = setup_browser()
-    driver.get("https://www.google.com")
-    print("Título da página:", driver.title)
-    driver.quit()
- 
-     def setup_browser(self) -> WebDriver:
+    # Função setup_browser única, pronta para Render
+    def setup_browser(self) -> WebDriver:
         options = Options()
+        options.binary_location = "/usr/bin/chromium"  # Render Chromium
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
         options.add_experimental_option("detach", True)
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
-        return webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
-    
-    def solve(debug) -> dict:
+        return webdriver.Chrome(
+            options=options,
+            service=Service(ChromeDriverManager().install())
+        )
 
+    def solve(self, debug=False) -> dict:
         session = Session()
         session.headers = {
-                'authority': 'zefoy.com',
-                'origin': 'https://zefoy.com',
-                'authority': 'zefoy.com',
-                'cp-extension-installed': 'Yes',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-            }
+            'authority': 'zefoy.com',
+            'origin': 'https://zefoy.com',
+            'cp-extension-installed': 'Yes',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+        }
         
         while True:
             source_code = str(session.get('https://zefoy.com').text).replace('&amp;', '&')
