@@ -3,3 +3,4 @@ pillow
 requests
 colorama
 selenium
+webdriver_manager
