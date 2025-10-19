@@ -4,5 +4,3 @@ requests
 colorama
 selenium
 webdriver_manager
-chromium
-chromium-driver
