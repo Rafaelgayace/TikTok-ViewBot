@@ -50,7 +50,35 @@ class Zefoy:
             6: (('self.driver.find_element(By.XPATH, self.xpaths["favorites"]).click()', "12"), "c2VuZF9mb2xsb3dlcnNfdGlrdG9L")
         }
 
-    def setup_browser(self) -> WebDriver:
+# v2.py
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+
+# Aqui você cola o trecho
+def setup_browser():
+    options = Options()
+    options.binary_location = "/usr/bin/chromium"  # Render vai usar Chromium
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome(
+        service=Service("/usr/bin/chromedriver"),
+        options=options
+    )
+    return driver
+
+# Exemplo de uso no seu código
+if __name__ == "__main__":
+    driver = setup_browser()
+    driver.get("https://www.google.com")
+    print("Título da página:", driver.title)
+    driver.quit()
+ 
+     def setup_browser(self) -> WebDriver:
         options = Options()
         options.add_experimental_option("detach", True)
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
